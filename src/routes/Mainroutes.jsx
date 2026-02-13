@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Recipies from "../Recipies";
+import Recipies from "../pages/Recipies";
+import Home from "../pages/Home";
+import About from "../pages/About";
 const Mainroutes = () => {
   return (
     <Routes>
