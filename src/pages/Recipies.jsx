@@ -7,7 +7,11 @@ const Recipies = () => {
   const renderrecipies = data.map((recipe) => {
     return <RecipeCard key={recipe.id} recipe={recipe} />;
   });
-  return <div>{renderrecipies}</div>;
+  return (
+    <div className="flex flex-wrap">
+      {data.length > 0 ? renderrecipies : "No recipes found!"}
+    </div>
+  );
 };
 
 export default Recipies;
