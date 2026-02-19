@@ -25,7 +25,7 @@ const RecipeContext = (props) => {
 
       image: "https://cdn.dummyjson.com/recipe-images/1.webp",
       chef: "Pankaj Chamoli",
-      category: "Dinner",
+      category: "dinner",
       desc: "Roll out the pizza dough and spread tomato sauce evenly.Bake in the preheated oven for 12-15 minutes or until the crust is golden brown.Slice and serve hot.",
     },
   ]);

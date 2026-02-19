@@ -3,7 +3,7 @@ const RecipeCard = (props) => {
   const { id, image, title, desc, chef } = props.recipe;
   return (
     <Link
-      to={`/recipes/details/${id}`}
+      to={`/recipies/details/${id}`}
       className="duration-150 hover:scale-101 mr-3 mb-3 block w-[23vw] rounded overflow-hidden shadow"
     >
       <img className="object-cover w-full  h-[20vh]" src={image} alt="" />

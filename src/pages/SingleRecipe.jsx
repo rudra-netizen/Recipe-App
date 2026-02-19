@@ -3,22 +3,48 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { nanoid } from "nanoid";
+
+import { toast } from "react-toastify";
 const SingleRecipe = () => {
-  const navigate = useNavigate();
-  // const { data, setdata } = useContext(recipecontext);
-  const { register, handleSubmit, reset } = useForm();
-  const SubmitHandler = (recipe) => {};
-  const { data } = useContext(recipecontext);
   const params = useParams();
+  const navigate = useNavigate();
+  const { data, setdata } = useContext(recipecontext);
   const recipe = data.find((recipe) => params.id == recipe.id);
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      title: recipe.title,
+      chef: recipe.chef,
+      image: recipe.image,
+      inst: recipe.inst,
+      desc: recipe.desc,
+      ingr: recipe.ingr,
+    },
+  });
+  const SubmitHandler = (recipe) => {
+    const recipeindex = data.findIndex((recipe) => params.id == recipe.id);
+    const copydata = [...data];
+    copydata[recipeindex] = { ...copydata[recipeindex], ...recipe };
+    setdata(copydata);
+    toast.success("Recipe Updated Successfully!");
+  };
+  // const { data } = useContext(recipecontext);
+
+  //const recipe = data.find((recipe) => params.id == recipe.id);
   console.log(recipe);
+  const DeleteHandler = () => {
+    const filterdata = data.filter((r) => r.id != params.id);
+    setdata(filterdata);
+    toast.success("Recipe Deleted Successfully!");
+    navigate("/recipies");
+  };
   return recipe ? (
     <div className="w-full flex">
       <div className="left w-1/2 p-2">
         <h1 className="text-5xl font-black">{recipe.title}</h1>
         <img className="h-[20vh]" src={recipe.image} alt="" />
+        <h1 className="text-white">{recipe.chef}</h1>
+        <h1 className="text-white">{recipe.desc}</h1>
       </div>
 
       <form className="w-1/2 p-2" onSubmit={handleSubmit(SubmitHandler)}>
@@ -26,7 +52,6 @@ const SingleRecipe = () => {
           className="block border-b outline-0 p-2"
           {...register("image")}
           type="url"
-          value={recipe.image}
           placeholder="Enter image Url"
         />
         <small className="text-red-400">This is how the error is shown</small>
@@ -69,8 +94,14 @@ const SingleRecipe = () => {
           <option value="supper">Supper</option>
           <option value="dinner">Dinner</option>
         </select>
-        <button className="mt-5 block bg-gray-900 px-4 py-2 rounded">
-          Save recipe
+        <button className="mt-5 block bg-blue-900 px-4 py-2 rounded">
+          Update recipe
+        </button>
+        <button
+          onClick={DeleteHandler}
+          className="mt-5 block bg-red-900 px-4 py-2 rounded"
+        >
+          Delete recipe
         </button>
       </form>
     </div>
