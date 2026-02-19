@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
-
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 const SingleRecipe = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -38,6 +38,13 @@ const SingleRecipe = () => {
     toast.success("Recipe Deleted Successfully!");
     navigate("/recipies");
   };
+  useEffect(() => {
+    console.log("SingleRecipe.jsx Mounted");
+
+    return () => {
+      console.log("SingleRecipe.jsx unmounted");
+    };
+  }, []);
   return recipe ? (
     <div className="w-full flex">
       <div className="left w-1/2 p-2">
