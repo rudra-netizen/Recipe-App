@@ -4,9 +4,12 @@ SwaadScript is a modern, minimalist recipe management web application designed t
 
 ---
 
-## 🚀 Live Overview
+## 🌐 Live Demo
 
-A clean, fast and responsive digital cookbook built with React and Tailwind CSS.  
+🚀 **Project is Live:**  
+👉 https://recipe-app-green-three-39.vercel.app/
+
+Experience the clean, fast, and responsive digital cookbook built with React and Tailwind CSS.  
 Store your favorite recipes, update them anytime, and never lose your delicious ideas again.
 
 ---
@@ -100,6 +103,15 @@ http://localhost:5173/
 
 ---
 
+## 🚀 Deployment
+
+This project is successfully deployed using **Vercel**.
+
+🔗 Live URL:  
+https://recipe-app-green-three-39.vercel.app/
+
+---
+
 ## 💡 Why SwaadScript?
 
 We often lose recipes written on paper or saved randomly in notes.  
@@ -120,4 +132,4 @@ This project is open-source and available under the MIT License.
 
 ---
 
-### ❤️ Made with passion for food lovers & developers.
+### ❤️ Made with passion for food lovers & developers
