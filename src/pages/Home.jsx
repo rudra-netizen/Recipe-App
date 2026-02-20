@@ -32,24 +32,31 @@ export default Home;
 */
 const Home = () => {
   return (
-    <div className="w-full min-h-[70vh] flex flex-col items-center justify-center text-center">
-      {/* Main Heading */}
-      <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-5 uppercase italic">
-        Swaad<span className="text-red-500">Script.</span>
-      </h1>
+    <div className="w-full min-h-screen bg-zinc-950 text-white flex items-center px-6 md:px-16 py-16">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div className="space-y-8 text-center md:text-left">
+          <h1 className="text-5xl md:text-7xl font-black leading-tight">
+            <span className="text-red-500">SwaadScript</span>
+          </h1>
 
-      <p className="text-zinc-400 text-lg md:text-2xl font-light max-w-2xl leading-relaxed mb-10">
-        "The world's most intuitive digital cookbook. Seamlessly save, organize,
-        and refine your recipes at any time
-      </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-white">
+            Discover. Cook. Preserve Flavors.
+          </h2>
 
-      <div className="w-full max-w-4xl h-[40vh] overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/10 relative group">
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500 z-10"></div>
-        <img
-          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
-          src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2070&auto=format&fit=crop"
-          alt="Kitchen"
-        />
+          <p className="text-zinc-400 text-lg md:text-xl max-w-xl mx-auto md:mx-0">
+            Your personal digital cookbook to store, organize, and revisit your
+            favorite recipes anytime. Simple, clean, and beautifully crafted.
+          </p>
+        </div>
+
+        <div className="relative group">
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+            alt="Delicious Food"
+            className="rounded-3xl object-cover w-full h-[450px] shadow-2xl"
+          />
+          <div className="absolute inset-0 bg-black/30 rounded-3xl group-hover:bg-black/10 transition duration-500"></div>
+        </div>
       </div>
     </div>
   );
