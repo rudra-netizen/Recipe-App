@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-center gap-x-10 text-sm mb-10">
+    <div className="flex items-center justify-center gap-x-6 md:gap-x-10 text-sm mb-16 sticky top-5 z-[100] backdrop-blur-xl bg-white/5 py-4 px-8 rounded-full border border-white/10 shadow-2xl mx-auto w-fit">
       <NavLink className={(e) => (e.isActive ? "text-red-300" : "")} to="/">
         Home
       </NavLink>
@@ -23,6 +23,9 @@ const Navbar = () => {
         to="/create-recipe"
       >
         Create Recipe
+      </NavLink>
+      <NavLink className={(e) => (e.isActive ? "text-red-300" : "")} to="/fav">
+        Favorite
       </NavLink>
     </div>
   );

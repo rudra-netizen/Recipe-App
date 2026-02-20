@@ -1,9 +1,22 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useState } from "react";
 export const recipecontext = createContext(null);
 const RecipeContext = (props) => {
-  const [data, setdata] = useState([
-    {
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    setdata(JSON.parse(localStorage.getItem("recipes")) || []);
+  }, []);
+  console.log(data);
+  return (
+    <recipecontext.Provider value={{ data, setdata }}>
+      {props.children}
+    </recipecontext.Provider>
+  );
+};
+
+export default RecipeContext;
+/*
+ {
       id: 1,
       title: "Classic Margherita Pizza",
       ingredients: [
@@ -28,13 +41,4 @@ const RecipeContext = (props) => {
       category: "dinner",
       desc: "Roll out the pizza dough and spread tomato sauce evenly.Bake in the preheated oven for 12-15 minutes or until the crust is golden brown.Slice and serve hot.",
     },
-  ]);
-  console.log(data);
-  return (
-    <recipecontext.Provider value={{ data, setdata }}>
-      {props.children}
-    </recipecontext.Provider>
-  );
-};
-
-export default RecipeContext;
+*/

@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Create from "./pages/Create";
 const App = () => {
   return (
-    <div className="text-white py-10 px-[10%] w-screen h-screen font-thin bg-gray-800">
+    <div className="bg-gradient-to-br from-zinc-900 via-gray-900 to-black text-white min-h-screen w-full px-6 md:px-[10%] py-10 font-[system-ui] selection:bg-red-400 selection:text-white overflow-x-hidden">
       <Navbar />
       <Mainroutes />
     </div>

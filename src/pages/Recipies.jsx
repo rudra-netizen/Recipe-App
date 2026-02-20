@@ -8,7 +8,7 @@ const Recipies = () => {
     return <RecipeCard key={recipe.id} recipe={recipe} />;
   });
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center px-4">
       {data.length > 0 ? renderrecipies : "No recipes found!"}
     </div>
   );
