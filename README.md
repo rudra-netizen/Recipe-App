@@ -51,23 +51,23 @@ src/
 
 ### 🏠 Home Page
 
-![Home](Screenshots/Homereact.png)
+![Home](Screenshot/Homereact.png)
 
 ### ➕ Create Recipe Page
 
-![Create](Screenshots/CreateReccipes.png)
+![Create](Screenshot/CreateReccipes.png)
 
 ### 📖 All Recipes Page
 
-![Recipes](Screenshots/recipess.png)
+![Recipes](Screenshot/recipess.png)
 
 ### ✏️ Update Recipe Page
 
-![Update](Screenshots/Updatee.png)
+![Update](Screenshot/Updatee.png)
 
 ### ℹ️ About Page
 
-![About](Screenshots/Aboutt.png)
+![About](Screenshot/Aboutt.png)
 
 ---
 
