@@ -3,10 +3,10 @@ const About = () => {
     <div className="w-full min-h-screen bg-zinc-950 text-white px-6 md:px-16 py-16">
       <div className="max-w-6xl mx-auto mb-20 text-center md:text-left">
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-          Hamari <span className="text-red-500">Kahani.</span>
+          Our <span className="text-red-500">Story</span>
         </h1>
         <p className="text-zinc-400 text-lg md:text-xl border-l-4 border-red-500 pl-4 max-w-2xl">
-          Code aur Khane ka ek anokha sangam.
+          "A unique fusion of code and cuisine."
         </p>
       </div>
 
