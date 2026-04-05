@@ -1,4 +1,4 @@
-import { recipecontext } from "../context/RecipeContext";
+/*import { recipecontext } from "../context/RecipeContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -153,7 +153,7 @@ const SingleRecipe = () => {
 
 export default SingleRecipe;
 
-/*
+*/
 import { recipecontext } from "../context/RecipeContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
@@ -163,6 +163,7 @@ import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useState } from "react";
+
 const SingleRecipe = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -178,6 +179,7 @@ const SingleRecipe = () => {
       ingr: recipe?.ingr,
     },
   });
+
   const UpdateHandler = (recipe) => {
     const recipeindex = data.findIndex((recipe) => params.id == recipe.id);
     const copydata = [...data];
@@ -186,10 +188,7 @@ const SingleRecipe = () => {
     localStorage.setItem("recipes", JSON.stringify(copydata));
     toast.success("Recipe Updated Successfully!");
   };
-  // const { data } = useContext(recipecontext);
 
-  //const recipe = data.find((recipe) => params.id == recipe.id);
-  console.log(recipe);
   const DeleteHandler = () => {
     const filterdata = data.filter((r) => r.id != params.id);
     setdata(filterdata);
@@ -201,169 +200,209 @@ const SingleRecipe = () => {
   const [favorite, setfavorite] = useState(
     JSON.parse(localStorage.getItem("fav")) || []
   );
+
   const FavHandler = () => {
     let copyfav = [...favorite];
     copyfav.push(recipe);
     setfavorite(copyfav);
     localStorage.setItem("fav", JSON.stringify(copyfav));
   };
+
   const UnFavHandler = () => {
     const updatedFav = favorite.filter((f) => f.id != recipe.id);
     setfavorite(updatedFav);
     localStorage.setItem("fav", JSON.stringify(updatedFav));
   };
+
   useEffect(() => {
     console.log("SingleRecipe.jsx Mounted");
-
     return () => {
       console.log("SingleRecipe.jsx unmounted");
     };
   }, [favorite]);
+
+  if (!recipe)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0f172a] text-white font-bold">
+        Recipe not found.
+      </div>
+    );
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white px-6 lg:px-16 py-10 flex flex-col lg:flex-row gap-12">
-      
-      <div className="lg:w-1/2 relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/10">
-       
-        {favorite.find((f) => f.id === recipe.id) ? (
-          <i
-            onClick={UnFavHandler}
-            className="ri-heart-fill absolute top-6 right-6 text-3xl text-red-500 hover:scale-110 transition cursor-pointer"
-          ></i>
-        ) : (
-          <i
-            onClick={FavHandler}
-            className="ri-heart-line absolute top-6 right-6 text-3xl text-red-500 hover:scale-110 transition cursor-pointer"
-          ></i>
-        )}
+    <div className="min-h-screen bg-[#0f172a] text-slate-200 px-4 sm:px-10 lg:px-24 py-12 selection:bg-cyan-500/30">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-7 space-y-8 bg-slate-800/40 backdrop-blur-xl p-6 sm:p-12 rounded-[2.5rem] border border-slate-700/50 shadow-2xl">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div className="relative overflow-hidden rounded-[2rem] bg-slate-900">
+              {favorite.find((f) => f.id === recipe.id) ? (
+                <button
+                  onClick={UnFavHandler}
+                  className="absolute top-6 right-6 z-20 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl shadow-xl hover:scale-110 active:scale-90 transition-all border border-red-500/50"
+                >
+                  <i className="ri-heart-fill text-2xl text-red-500"></i>
+                </button>
+              ) : (
+                <button
+                  onClick={FavHandler}
+                  className="absolute top-6 right-6 z-20 bg-slate-900/80 backdrop-blur-md p-3.5 rounded-2xl shadow-xl hover:scale-110 active:scale-90 transition-all border border-slate-700"
+                >
+                  <i className="ri-heart-line text-2xl text-slate-400"></i>
+                </button>
+              )}
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-[400px] sm:h-[550px] object-cover hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </div>
 
-        <h1 className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
-          {recipe.title}
-        </h1>
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-7xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent tracking-tight">
+              {recipe.title}
+            </h1>
+            <div className="flex items-center gap-4 text-cyan-400 font-medium tracking-widest text-xs uppercase">
+              <span className="px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10">
+                Chef {recipe.chef}
+              </span>
+              <span className="h-px w-12 bg-slate-700"></span>
+              <span className="text-slate-500 italic lowercase">
+                {recipe.category} special
+              </span>
+            </div>
+          </div>
 
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-full h-[350px] object-cover rounded-2xl mb-6 shadow-xl hover:scale-105 transition duration-500"
-        />
+          <p className="text-slate-400 leading-relaxed text-xl font-light border-l-2 border-cyan-500/50 pl-6 italic">
+            {recipe.desc}
+          </p>
 
-        <p className="text-gray-300 mb-2">
-          👨‍🍳 <span className="font-semibold text-white">{recipe.chef}</span>
-        </p>
+          <div className="grid sm:grid-cols-2 gap-8 pt-6">
+            <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-slate-700/30">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                  <i className="ri-restaurant-line"></i>
+                </span>
+                Ingredients
+              </h3>
+              <ul className="space-y-4">
+                {recipe.ingr
+                  .split(/,|\n/)
+                  .filter((item) => item.trim() !== "")
+                  .map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-slate-300 text-sm group"
+                    >
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-cyan-500 group-hover:shadow-[0_0_8px_#22d3ee]"></span>
+                      <span className="whitespace-pre-line leading-relaxed">
+                        {item.trim()}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
 
-        <p className="text-gray-400 mb-6 leading-relaxed">{recipe.desc}</p>
-
-        <div className="mb-6">
-          <h3 className="text-xl font-bold mb-3 border-b border-white/10 pb-2">
-            Ingredients
-          </h3>
-          <ul className="space-y-2 text-gray-300">
-            {recipe.ingr.split(",").map((item, i) => (
-              <li
-                key={i}
-                className="bg-white/5 px-4 py-2 rounded-lg hover:bg-white/10 transition"
-              >
-                {item.trim()}
-              </li>
-            ))}
-          </ul>
+            <div className="p-4">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
+                  <i className="ri-list-check"></i>
+                </span>
+                Instructions
+              </h3>
+              <ol className="space-y-6">
+                {recipe.inst
+                  .split(/,|\n/)
+                  .filter((step) => step.trim() !== "")
+                  .map((step, i) => (
+                    <li key={i} className="flex gap-4 group">
+                      <span className="flex-none w-6 h-6 rounded-md bg-slate-800 border border-slate-700 text-[10px] flex items-center justify-center text-cyan-400 font-bold group-hover:border-cyan-500/50 transition-colors">
+                        {i + 1}
+                      </span>
+                      <span className="text-slate-400 text-sm leading-relaxed whitespace-pre-line group-hover:text-slate-200">
+                        {step.trim()}
+                      </span>
+                    </li>
+                  ))}
+              </ol>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <h3 className="text-xl font-bold mb-3 border-b border-white/10 pb-2">
-            Instructions
-          </h3>
-          <ol className="space-y-2 text-gray-300">
-            {recipe.inst.split(",").map((step, i) => (
-              <li
-                key={i}
-                className="bg-white/5 px-4 py-2 rounded-lg hover:bg-white/10 transition"
+        <div className="lg:col-span-5">
+          <form
+            onSubmit={handleSubmit(UpdateHandler)}
+            className="sticky top-10 bg-gradient-to-b from-slate-800 to-slate-900 p-8 sm:p-10 rounded-[2.5rem] border border-slate-700 shadow-2xl space-y-6"
+          >
+            <div className="space-y-1">
+              <h2 className="text-2xl font-black text-white tracking-tight">
+                Edit Recipe
+              </h2>
+              <p className="text-slate-500 text-xs font-medium uppercase tracking-tighter underline decoration-cyan-500/50 underline-offset-4">
+                Edit Recipe as per your choice
+              </p>
+            </div>
+
+            <div className="space-y-4 pt-4">
+              {[
+                { label: "Image URL", name: "image", icon: "ri-image-line" },
+                { label: "Title", name: "title", icon: "ri-edit-box-line" },
+                { label: "Chef", name: "chef", icon: "ri-user-heart-line" },
+              ].map((field) => (
+                <div key={field.name} className="relative group">
+                  <i
+                    className={`${field.icon} absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors`}
+                  ></i>
+                  <input
+                    {...register(field.name)}
+                    placeholder={field.label}
+                    className="w-full bg-slate-950/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-4 text-sm focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 outline-none transition-all placeholder:text-slate-600"
+                  />
+                </div>
+              ))}
+
+              <select
+                {...register("category")}
+                className="w-full bg-slate-950/50 border border-slate-700 rounded-2xl px-4 py-4 text-sm focus:border-cyan-500/50 outline-none text-slate-400"
               >
-                {step.trim()}
-              </li>
-            ))}
-          </ol>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="supper">Supper</option>
+                <option value="dinner">Dinner</option>
+              </select>
+
+              {["desc", "ingr", "inst"].map((area) => (
+                <textarea
+                  key={area}
+                  {...register(area)}
+                  placeholder={area.toUpperCase()}
+                  rows="2"
+                  className="w-full bg-slate-950/50 border border-slate-700 rounded-2xl px-4 py-4 text-sm focus:border-cyan-500/50 outline-none transition-all placeholder:text-slate-600 resize-none"
+                ></textarea>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-3 pt-6">
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white py-4 rounded-2xl font-bold text-sm shadow-[0_10px_20px_-10px_rgba(8,145,178,0.5)] active:scale-95 transition-all"
+              >
+                Update Recipe
+              </button>
+
+              <button
+                type="button"
+                onClick={DeleteHandler}
+                className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 py-3 rounded-2xl font-bold text-xs transition-all border border-red-500/20"
+              >
+                Delete Recipe
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
-     
-      <form
-        onSubmit={handleSubmit(UpdateHandler)}
-        className="lg:w-1/2 bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/10 space-y-5"
-      >
-        <h2 className="text-2xl font-bold mb-4">Edit Recipe</h2>
-
-        <input
-          {...register("image")}
-          type="url"
-          placeholder="Image URL"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        />
-
-        <input
-          {...register("title")}
-          type="text"
-          placeholder="Recipe Title"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        />
-
-        <input
-          {...register("chef")}
-          type="text"
-          placeholder="Chef Name"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        />
-
-        <textarea
-          {...register("desc")}
-          placeholder="Description"
-          rows="3"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        ></textarea>
-
-        <textarea
-          {...register("ingr")}
-          placeholder="Ingredients (comma separated)"
-          rows="3"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        ></textarea>
-
-        <textarea
-          {...register("inst")}
-          placeholder="Instructions (comma separated)"
-          rows="3"
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        ></textarea>
-
-        <select
-          {...register("category")}
-          className="w-full p-3 rounded-xl bg-gray-800 border border-white/10 focus:ring-2 focus:ring-blue-500 outline-none transition"
-        >
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="supper">Supper</option>
-          <option value="dinner">Dinner</option>
-        </select>
-
-        <div className="flex gap-4 pt-4">
-          <button
-            type="submit"
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 font-semibold uppercase tracking-wide hover:scale-105 transition"
-          >
-            Update
-          </button>
-
-          <button
-            type="button"
-            onClick={DeleteHandler}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 font-semibold uppercase tracking-wide hover:scale-105 transition"
-          >
-            Delete
-          </button>
-        </div>
-      </form>
     </div>
   );
 };
 
 export default SingleRecipe;
-*/
